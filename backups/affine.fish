@@ -2,14 +2,27 @@
 
 set timestamp (date +%Y-%m-%d_%H-%M)
 set backup_name "backup_$timestamp.sql.gz"
+set images_backup_name "backup_images_$timestamp.tar.gz"
 set local_path "$HOME/dane/backups/affine/"
 
 cd $HOME/docker/affine
 
-docker compose exec postgres sh -c 'pg_dump -U $POSTGRES_USER -d $POSTGRES_DB' | gzip > $backup_name
+# baza danych
+docker compose exec -T postgres sh -c 'pg_dump -U $POSTGRES_USER -d $POSTGRES_DB' | gzip > $backup_name
 
+# backup obrazkow
+docker compose exec -T affine tar -C /root/.affine -czf - storage > $images_backup_name
 
+# baza dancyh na zewnetrzny serwer
 rsync -avz --info=progress2 ./$backup_name szpont:~/dane/backups/affine/
+
+# obrazki na zewnetrzny serwer
+rsync -avz --info=progress2 ./$images_backup_name szpont:~/dane/backups/affine/
+
+# baza danych
 mv ./$backup_name $local_path$backup_name
 
-echo "Zakończono: Backup $backup_name został wysłany na szpont i zapisany lokalnie."
+# obrazki
+mv ./$images_backup_name $local_path$images_backup_name
+
+echo "Zakończono: Backup bazy ($backup_name) i obrazków ($images_backup_name) został wysłany na szpont i zapisany lokalnie."
