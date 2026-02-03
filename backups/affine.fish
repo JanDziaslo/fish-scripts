@@ -14,10 +14,10 @@ docker compose exec -T postgres sh -c 'pg_dump -U $POSTGRES_USER -d $POSTGRES_DB
 docker compose exec -T affine tar -C /root/.affine -czf - storage > $images_backup_name
 
 # baza dancyh na zewnetrzny serwer
-rsync -avz --info=progress2 ./$backup_name szpont:~/dane/backups/affine/
+cp ./$backup_name $HOME/blob/backups/affine
 
 # obrazki na zewnetrzny serwer
-rsync -avz --info=progress2 ./$images_backup_name szpont:~/dane/backups/affine/
+cp ./$images_backup_name $HOME/blob/backups/affine
 
 # baza danych
 mv ./$backup_name $local_path$backup_name
