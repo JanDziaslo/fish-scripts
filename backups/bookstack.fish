@@ -51,8 +51,15 @@ docker exec "$BOOKSTACK_DB_CONTAINER" mariadb-dump -u"$BOOKSTACK_DB_USER" -p"$BO
 # 2. Backup plików (ze środka kontenera)
 echo "Backupuję pliki..."
 docker exec "$BOOKSTACK_CONTAINER" tar -czf /tmp/bookstack-files-$TIMESTAMP.tar.gz \
+    --exclude='/config/www/framework/cache' \
+    --exclude='/config/www/framework/sessions' \
+    --exclude='/config/www/framework/views' \
+    --exclude='/config/log' \
     /config/.env \
-    /config/www 2>/dev/null
+    /config/www \
+    /config/php \
+    /config/nginx \
+    /config/keys 2>/dev/null
 
 # Wyciągnij archiwum z kontenera
 docker cp "$BOOKSTACK_CONTAINER:/tmp/bookstack-files-$TIMESTAMP.tar.gz" "$BOOKSTACK_BACKUP_DIR/"
