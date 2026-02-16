@@ -1,23 +1,6 @@
 >[!IMPORTANT]
 > Skrypty zostały zrobione pod powłoke fish. Testowane na Debianie 13 (Trixie)
-# affine.fish
-## Prosty skrypt do backup'u bazy danych affine
-### Funkcje
-- Nazwa backupu po dacie i czasie stworzenia
-- Robienie backup'u na zewnętrzne urządzenie za pomoca rsync
-- Skrypt nie wymaga wyłączania affine dziala w tle niezależnie
-### Wymagania
-- rsync
-- fish
-- Affine postawiony za pomocą docker compose
-
-
-# minecraft.fish
-## Prosty skrypt do restartowania serwera minecraft
-### Funkcje 
-- Odliczanie minutę przed restartem serwera
-- Informowanie graczy na serwerze o restarcie serwera
-### Wymagania 
-- fish
-- serwer minecraft postawiony za pomocą docker compose
-- rcon-cli
+# Co to za repo?
+W tym repozytorium znajdziesz skrypty napisane pod powlokę fish które używam/używałem
+# Po co?
+Nie wiem, dokumentuje te skrypty na przyszly użytek żeby nie musieć pisać ich od nowa.
